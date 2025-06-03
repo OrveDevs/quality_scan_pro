@@ -28,7 +28,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable' # Esto usará la última versión estable disponible en el runner
+          flutter-version: '3.29.3' # Esto usará la última versión estable disponible en el runner
           channel: 'stable'
           cache: true
 
