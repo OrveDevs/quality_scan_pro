@@ -1,1 +1,0 @@
-# quality_scan_pro
