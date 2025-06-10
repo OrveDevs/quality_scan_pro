@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quality_scan_pro/features/auth/login_screen.dart';
 import 'package:quality_scan_pro/features/dashboard/dashboard_screen.dart';
-import 'package:quality_scan_pro/shared/widgets/app_drawer.dart'; // Importa el AppDrawer
+import 'package:quality_scan_pro/features/scanner/scanner_screen.dart'; // Asegúrate que esta pantalla exista
+import 'package:quality_scan_pro/features/product_detail/product_detail_screen.dart'; // Nueva importación
+import 'package:quality_scan_pro/shared/widgets/app_drawer.dart';
 // Asegúrate que 'quality_scan_pro' coincida con el 'name:' en tu pubspec.yaml
 
 class AppRoutes {
@@ -36,14 +38,19 @@ class AppRouter {
       GoRoute(
         path: '/scanner',
         name: AppRoutes.scanner,
-        builder: (context, state) => const PlaceholderScreen(title: 'Escáner e Inspección'),
+        builder: (context, state) => const ScannerScreen(), // Usamos la pantalla real
       ),
       GoRoute(
-        path: '/product-detail/:ean',
+        path: '/product-detail/:ean', // ean es el parámetro de ruta
         name: AppRoutes.productDetail,
         builder: (context, state) {
-          final ean = state.pathParameters['ean'] ?? 'EAN_DESCONOCIDO';
-          return PlaceholderScreen(title: 'Detalle del Producto: $ean');
+          final ean = state.pathParameters['ean'];
+          if (ean == null) {
+            return const Scaffold(
+                body: Center(child: Text('Error: EAN del producto no proporcionado a la ruta.'))
+            );
+          }
+          return ProductDetailScreen(ean: ean); // Pasamos el ean a la pantalla
         },
       ),
       GoRoute(
@@ -81,7 +88,7 @@ class AppRouter {
   );
 }
 
-// Widget placeholder simple con AppDrawer
+// Widget placeholder simple con AppDrawer (si aún lo usas para otras rutas)
 class PlaceholderScreen extends StatelessWidget {
   final String title;
   const PlaceholderScreen({super.key, required this.title});
@@ -91,10 +98,8 @@ class PlaceholderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        // El botón de hamburguesa para el Drawer aparecerá automáticamente
-        // si hay un Drawer en el Scaffold.
       ),
-      drawer: const AppDrawer(), // Añade el AppDrawer aquí
+      drawer: const AppDrawer(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

@@ -28,7 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  sqlite3_flutter_libs: ^0.5.0 # O la última versión compatible que veas en pub.dev
   package_info_plus: ^5.0.1 # O la última versión
+  csv: ^5.1.1 # O la última versión disponible en pub.dev
   flutter:
     sdk: flutter
     # UI & Navigation
@@ -99,6 +101,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+    # Para añadir assets a tu aplicación, añade una sección de assets como esta:
+  assets:
+    - assets/data/ # Esto incluye todos los archivos dentro de assets/data/
+    # - assets/data/PRODUCTOS.csv # Alternativamente, puedes especificar archivos individuales
 
   # To add assets to your application, add an assets section, like this:
   # assets:
